@@ -1,0 +1,12 @@
+{
+
+	"TMO_AWS_COMPREHEND": {
+		"Type": "ConnectionProfile:ApplicationIntegrator:AI AWS Comprehend",
+		"AI-region_name": "eu-central-1",
+		"AI-aws_access_key_id": "AKIAIZMR7XS2GSTYQBKA",
+		"AI-aws_secret_access_key": {"Secret": "TMO_AWS_SECRET_ACCESS_KEY"},
+		
+		"TargetAgent": "ctmv20",
+		"TargetCTM": "ctmv20"
+	}
+}

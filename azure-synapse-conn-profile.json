@@ -1,0 +1,13 @@
+{
+  "TMO_AZURE_SYNAPSE": {
+    "Type": "ConnectionProfile:Database:JDBC",
+    "User": "tmonte",
+    "Driver": "AzureSynapseAnalytics",
+    "Port": "1433",
+    "DatabaseName": "tmo-synapse-sql-pi",
+    "Host": "tmo-synapse-server.database.windows.net",
+    "Password": "FG5i9ApSHuYJCNF8",
+    "TargetAgent": "ctmv20",
+    "TargetCTM": "ctmv20"
+  }
+}

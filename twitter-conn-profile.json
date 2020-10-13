@@ -1,0 +1,12 @@
+{
+	"TMO_TWITTER": {
+		"Type": "ConnectionProfile:ApplicationIntegrator:Twitter API",
+		"AI-consumer_key": {"Secret": "TMO_TWITTER_CONSUMER_KEY"},
+		"AI-consumer_secret": {"Secret": "TMO_TWITTER_CONSUMER_SECRET"},
+		"AI-access_token": {"Secret": "TMO_TWITTER_ACCESS_TOKEN"},
+		"AI-access_token_secret": {"Secret": "TMO_TWITTER_ACCESS_SECRET"},
+		
+		"TargetAgent": "runner2.tlvlab.ctm.bmc.com",
+		"TargetCTM": "ctmserver"
+	}
+}
