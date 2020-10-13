@@ -1,0 +1,45 @@
+{
+	
+	"Defaults": {
+		"Application": "TMO_DEMO",
+		"SubApplication": "TMO_DEMO_DATAPIPELINE",
+		"RunAs": "controlm",
+		"Host": "ctmv20",
+		"ControlmServer": "ctmv20",
+		"ActiveRetentionPolicy": "CleanEndedOK"
+	},
+	
+	
+	"TMO_SOURCE_APP": {
+		"Type": "Folder",
+		
+		"When" : {
+		    "Schedule":"Never"
+		},
+						
+		"TMO_get-tweets": {
+			"Type": "Job:ApplicationIntegrator:AI Twitter API",
+
+			"ConnectionProfile": "TMO_TWITTER",
+			"AI-search_query": "COVID",
+			"AI-pages": "20"
+
+		},
+		
+		"TMO_new-job": {
+			"Type" : "Job:Command",
+			"Command" : "echo hello",
+			"RunAs" : "controlm"
+		},
+		
+		"eventsToAdd": {
+			"Type": "AddEvents",
+			"Events": [
+				{
+					"Event": "source-app-ready"
+				}
+			]
+		}
+		
+	}
+}

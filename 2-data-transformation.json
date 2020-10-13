@@ -1,0 +1,62 @@
+{
+	"Defaults": {
+		"Application": "TMO_DEMO",
+		"SubApplication": "TMO_DEMO_DATAPIPELINE",
+		"RunAs": "controlm",
+		"Host": "ctmv20",
+		"ControlmServer": "ctmv20",
+		"ActiveRetentionPolicy": "CleanEndedOK"
+	},
+	
+	"TMO_DATA_TRANSFORMATION": {
+		"Type": "Folder",
+	
+		"When": {
+			"Schedule": "Never"
+		},
+	
+		"eventsToWaitFor": {
+			"Type": "WaitForEvents",
+			"Events": [{"Event": "source-app-ready" }]
+		},
+			
+		"eventsToDelete": {
+			"Type": "DeleteEvents",
+			"Events": [{"Event": "source-app-ready" }]
+		},	
+	
+		"TMO_analyze-tweets": {
+			"Type": "Job:ApplicationIntegrator:AI AWS Comprehend",
+			"ConnectionProfile": "TMO_AWS_COMPREHEND",
+			
+			"AI-input_file": "tweets.json",
+			"AI-output_file": "tweets_enriched.json"
+		},
+		
+		"TMO_upload-to-blob": {
+			"Type": "Job:ApplicationIntegrator:AI Azure blob storage",
+			"ConnectionProfile": "TMO_AZURE",
+		
+			"AI-Action": "Upload",
+			"AI-Public Access": "Off",
+			"AI-Container (Up/Download)": "sentimentanalysis",
+			"AI-Blob name (Up/Download)": "tweets_enriched.json",
+			"AI-File path": "tweets_enriched.json"
+		
+		},
+		
+		"flow1": {
+			"Type":"Flow",
+			"Sequence":["TMO_analyze-tweets", "TMO_upload-to-blob"]
+		},
+		
+		"eventsToAdd": {
+			"Type": "AddEvents",
+			"Events": [
+				{
+					"Event": "data-transformation-ready"
+				}
+			]
+		}
+	}
+}

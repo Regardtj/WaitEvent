@@ -1,0 +1,42 @@
+{
+
+	"Defaults": {
+		"Application": "TMO_DEMO",
+		"SubApplication": "TMO_DEMO_DATAPIPELINE",
+		"RunAs": "controlm",
+		"Host": "ctmv20",
+		"ControlmServer": "ctmv20",
+		"ActiveRetentionPolicy": "CleanEndedOK"
+	},
+
+	"TMO_DATA_INGESTION": {
+		"Type": "Folder",
+		
+		"When": {
+			"Schedule": "Never"
+		},
+		
+		"eventsToWaitFor": {
+			"Type": "WaitForEvents",
+			"Events": [{"Event": "data-transformation-ready" }]
+		},			
+		"eventsToDelete": {
+			"Type": "DeleteEvents",
+			"Events": [{"Event": "data-transformation-ready" }]
+		},	
+
+		"TMO_ingest-enriched-tweets": {
+			"Type": "Job:ApplicationIntegrator:AI Azure Data Factory",
+			"ConnectionProfile": "TMO_AZURE_DATAFACTORY",
+		
+			"AI-ResourceGroupName": "tmo_datafactory",
+			"AI-FactoryName": "tmo-datafactory",
+			"AI-PipelineName": "ingest-enriched-twitter-data"
+		},
+		
+		"eventsToAdd": {
+			"Type": "AddEvents",
+			"Events": [{ "Event": "data-ingestion-ready" }]
+		}
+	}
+}
